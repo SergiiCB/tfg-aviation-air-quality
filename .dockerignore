@@ -1,0 +1,120 @@
+# =============================================================================
+# .dockerignore - ARXIUS A IGNORAR EN LA CONSTRUCCIÓ DE LA IMATGE DOCKER
+# =============================================================================
+# Evita copiar fitxers innecessaris a la imatge Docker, reduint la mida i 
+# accelerant el procés de build
+
+# -------------------------------------------------------------------------------
+# DADES (massa pesades per incloure a la imatge)
+# -------------------------------------------------------------------------------
+data/raw/**
+data/merged/**
+data/processed/**
+
+# Mantenir estructura de carpetes però sense contingut
+!data/raw/.gitkeep
+!data/merged/.gitkeep
+!data/processed/.gitkeep
+
+# -------------------------------------------------------------------------------
+# OUTPUTS (generats durant l'execució)
+# -------------------------------------------------------------------------------
+outputs/maps/**
+outputs/figures/**
+!outputs/maps/.gitkeep
+!outputs/figures/.gitkeep
+
+# -------------------------------------------------------------------------------
+# GIT
+# -------------------------------------------------------------------------------
+.git
+.gitignore
+.gitattributes
+.github
+
+# -------------------------------------------------------------------------------
+# PYTHON
+# -------------------------------------------------------------------------------
+# Entorns virtuals
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribucions
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# -------------------------------------------------------------------------------
+# JUPYTER
+# -------------------------------------------------------------------------------
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# -------------------------------------------------------------------------------
+# IDES / EDITORS
+# -------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# -------------------------------------------------------------------------------
+# DOCKER
+# -------------------------------------------------------------------------------
+.dockerignore
+Dockerfile
+docker-compose.yml
+*.log
+
+# -------------------------------------------------------------------------------
+# ALTRES
+# -------------------------------------------------------------------------------
+# Documentació
+*.md
+!README.md
+
+# Fitxers temporals
+*.tmp
+*.bak
+*.cache
+
+# Sistema operatiu
+Thumbs.db
+.DS_Store
+
+# Secrets (important!)
+.env
+*.key
+*.pem
+*.crt
+
+# -------------------------------------------------------------------------------
+# NOTA: Si vols incloure alguna cosa específica, usa el patró ! davant
+# Exemple: !data/raw/sample.csv (per incloure un fitxer de mostra)
+# -------------------------------------------------------------------------------

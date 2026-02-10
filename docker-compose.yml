@@ -1,0 +1,71 @@
+# =============================================================================
+# DOCKER COMPOSE
+# =============================================================================
+# Ús: docker-compose up -d
+# Accedir a Jupyter: http://localhost:8888
+
+version: '3.8'
+
+services:
+  tfg-jupyter:
+    # Nom del servei
+    container_name: tfg-aviation-analysis
+    
+    # Construir la imatge des del Dockerfile actual
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Ports: mapeja el port 8888 del container al 8888 de l'host
+    ports:
+      - "8888:8888"
+    
+    # Volums: sincronitza carpetes entre host i container (permet que els canvis es vegin en temps real)
+    volumes:
+      # Dades (persistents entre execucions)
+      - ./data:/tfg/data
+      
+      # Codi font (editable en temps real)
+      - ./src:/tfg/src
+      
+      # Notebooks (editable en temps real)
+      - ./notebooks:/tfg/notebooks
+      
+      # Outputs (resultats guardats)
+      - ./outputs:/tfg/outputs
+    
+    # Variables d'entorn
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - PYTHONUNBUFFERED=1
+    
+    # Reiniciar automàticament si el container es para
+    restart: unless-stopped
+    
+    # Mantenir el container actiu
+    stdin_open: true
+    tty: true
+
+# =============================================================================
+# INSTRUCCIONS D'ÚS
+# =============================================================================
+# 
+# 1. Iniciar el projecte:
+#    docker-compose up -d
+#
+# 2. Accedir a Jupyter Lab:
+#    Obre el navegador a: http://localhost:8888
+#
+# 3. Veure logs:
+#    docker-compose logs -f
+#
+# 4. Aturar el projecte:
+#    docker-compose down
+#
+# 5. Reconstruir després de canvis en requirements.txt:
+#    docker-compose up -d --build
+#
+# 6. Executar scripts Python dins el container:
+#    docker-compose exec tfg-jupyter python src/downloaders/adsb_downloader.py
+#
+# =============================================================================

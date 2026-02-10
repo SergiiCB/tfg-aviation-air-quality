@@ -1,0 +1,67 @@
+# =============================================================================
+# REQUIREMENTS.TXT - DEPENDÈNCIES PYTHON
+# =============================================================================
+# Instal·lació: pip install -r requirements.txt
+
+# -------------------------------------------------------------------------------
+# CORE DATA SCIENCE
+# -------------------------------------------------------------------------------
+pandas==2.2.0              # Manipulació i anàlisi de dades tabulars
+numpy==1.26.3              # Càlculs numèrics i arrays
+pyarrow==15.0.0            # Millora rendiment de pandas i suport Arrow
+
+# -------------------------------------------------------------------------------
+# WEB SCRAPING I API
+# -------------------------------------------------------------------------------
+requests==2.31.0           # Peticions HTTP per APIs (ADS-B, ICA)
+urllib3==2.1.0             # Client HTTP (dependency de requests)
+
+# -------------------------------------------------------------------------------
+# JUPYTER
+# -------------------------------------------------------------------------------
+jupyter==1.0.0             # Jupyter Notebook clàssic
+jupyterlab==4.0.11         # Jupyter Lab (interfície moderna)
+ipykernel==6.29.0          # Kernel de Python per Jupyter
+ipywidgets==8.1.1          # Widgets interactius per notebooks
+
+# -------------------------------------------------------------------------------
+# DADES GEOESPACIALS
+# -------------------------------------------------------------------------------
+geopandas==0.14.2          # Dades geogràfiques (opcional però recomanat)
+shapely==2.0.2             # Geometries espacials
+
+# -------------------------------------------------------------------------------
+# ANÀLISI ESTADÍSTICA
+# -------------------------------------------------------------------------------
+scipy==1.12.0              # Funcions científiques i estadístiques
+scikit-learn==1.4.0        # Machine learning i correlacions
+
+# -------------------------------------------------------------------------------
+# VISUALITZACIÓ
+# -------------------------------------------------------------------------------
+matplotlib==3.8.2          # Gràfics estàtics
+seaborn==0.13.1            # Gràfics estadístics (built on matplotlib)
+folium==0.15.1             # Mapes interactius (basat en Leaflet.js)
+plotly==5.18.0             # Gràfics interactius (opcional)
+
+# -------------------------------------------------------------------------------
+# UTILITATS
+# -------------------------------------------------------------------------------
+python-dotenv==1.0.0       # Gestió de variables d'entorn (.env)
+tqdm==4.66.1               # Barres de progrés
+openpyxl==3.1.2            # Llegir/escriure Excel (opcional)
+
+# -------------------------------------------------------------------------------
+# FORMAT I QUALITAT DE CODI (OPCIONAL - per desenvolupament)
+# -------------------------------------------------------------------------------
+# black==24.1.1            # Formatejador de codi Python
+# flake8==7.0.0            # Linter per detectar errors
+# pylint==3.0.3            # Anàlisi estàtic de codi
+
+# -------------------------------------------------------------------------------
+# NOTES
+# -------------------------------------------------------------------------------
+# - Versions fixades per garantir reproducibilitat
+# - Si vols actualitzar: pip install --upgrade <package>
+# - Per generar aquest fitxer: pip freeze > requirements.txt
+# =============================================================================
