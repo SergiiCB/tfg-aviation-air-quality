@@ -44,46 +44,74 @@ fields = [
     "gs", "track", "type", "category", "timestamp"
 ]
 
-# Paràmetres de la recollida de dades
-N = 288        # 24 hores amb captures cada 5 minuts
-SLEEP = 300    # 5 minuts = 300 segons
-OUTPUT_FILE = Path("data/raw/adsb/adsb_raw.csv")
+# =============================================================================
+# PARÀMETRES DE RECOLLIDA (CONFIGURACIÓ TFG)
+# =============================================================================
+
+DURADA_DIES = 7 # Durada total de la recollida (7 dies)
+INTERVAL_MINUTS = 5 # Interval entre captures (5 minuts)
+
+# Càlculs automàtics
+CAPTURES_PER_HORA = 60 // INTERVAL_MINUTS
+CAPTURES_PER_DIA = 24 * CAPTURES_PER_HORA
+N = DURADA_DIES * CAPTURES_PER_DIA  # Total de captures
+SLEEP = INTERVAL_MINUTS * 60  # Segons entre captures
+
+# Directori de sortida
+OUTPUT_DIR = Path("data/raw/adsb/")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_FILE = OUTPUT_DIR / "adsb_raw.csv"
 
 # =============================================================================
 # INICIALITZACIÓ
 # =============================================================================
 
-print(f"Iniciant recollida: {N} captures cada {SLEEP//60} min → {OUTPUT_FILE}")
+print("=" * 70)
+print("RECOLLIDA DE DADES ADS-B")
+print("=" * 70)
+print(f"Durada: {DURADA_DIES} dies")
+print(f"Interval: {INTERVAL_MINUTS} minuts ({CAPTURES_PER_HORA} captures/hora)")
+print(f"Total captures: {N:,}")
+print(f"Registres esperats: ~{N * 477:,} (estimació basada en mitjana)")
+print(f"Fitxer sortida: {OUTPUT_FILE}")
+print("=" * 70)
+print()
 
 # Crear l'arxiu CSV amb les capçaleres
 with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     writer.writerow(fields)
 
-# Inicialitzar variables per comptar estadístiques de la recollida
-total_avions = 0  # Nombre total d'avions detectats en totes les captures
-captures_exitoses = 0  # Nombre de captures que s'han realitzat correctament
-captures_error = 0  # Nombre de captures que han fallat
+# Inicialitzar variables per comptar estadístiques
+temps_inici = datetime.utcnow()
+total_avions = 0
+captures_exitoses = 0
+captures_error = 0
+
+print(f"Inici: {temps_inici.isoformat()} UTC")
+print()
 
 # =============================================================================
 # BUCLE PRINCIPAL
 # =============================================================================
 
 for i in range(N):
+    temps_captura_inici = datetime.utcnow()
+    
     try:
         # Realitzar la sol·licitud a l'API
         r = requests.get(URL, headers=headers, timeout=30)
         
         if r.status_code != 200:
-            print(f"Error {r.status_code} en captura {i+1}/{N}")
+            print(f"[{temps_captura_inici:%H:%M:%S}] Error {r.status_code} en captura {i+1}/{N}")
             captures_error += 1
-            time.sleep(60)
+            time.sleep(60)  # Esperar 1 minut abans de reintentar
             continue
         
         # Obtindre les dades de la resposta
         data = r.json()
         avions = data.get("ac", [])
-        ts = datetime.utcnow().isoformat()
+        ts = temps_captura_inici.isoformat()
         
         # Escriure les dades a l'arxiu CSV
         with open(OUTPUT_FILE, "a", newline="", encoding="utf-8") as f:
@@ -110,31 +138,55 @@ for i in range(N):
         captures_exitoses += 1
         total_avions += len(avions)
         
-        print(f"Captura {i+1}/{N}: {len(avions)} avions")
+        print(f"[{temps_captura_inici:%H:%M:%S}] ✓ Captura {i+1}/{N}: {len(avions)} avions")
         
         # Estadístiques cada hora
-        if (i + 1) % 12 == 0:
-            print(f"\n--- Estadístiques després de {(i+1)//12}h ---")
-            print(f"Captures exitoses: {captures_exitoses} | Errors: {captures_error}")
-            print(f"Total avions: {total_avions} | Mitjana: {total_avions/captures_exitoses:.1f}\n")
+        if (i + 1) % CAPTURES_PER_HORA == 0:
+            hores = (i + 1) // CAPTURES_PER_HORA
+            temps_transcorregut = (datetime.utcnow() - temps_inici).total_seconds() / 3600
+            taxa_exit = (captures_exitoses / (captures_exitoses + captures_error) * 100) if (captures_exitoses + captures_error) > 0 else 0
+            mitjana_avions = total_avions / captures_exitoses if captures_exitoses > 0 else 0
+            
+            print()
+            print(f"Estadístiques després de {hores}h ({temps_transcorregut:.1f}h reals)")
+            print(f"Captures exitoses: {captures_exitoses} | Errors: {captures_error} | Taxa èxit: {taxa_exit:.1f}%")
+            print(f"Total avions: {total_avions:,} | Mitjana: {mitjana_avions:.1f} avions/captura")
+            print(f"Projecció 7 dies: {int(mitjana_avions * N):,} avions")
+            print()
         
     except Exception as e:
-        print(f"Error captura {i+1}/{N}: {e}")
+        print(f"[{temps_captura_inici:%H:%M:%S}] Error captura {i+1}/{N}: {e}")
         captures_error += 1
         time.sleep(60)
         continue
     
-    # Esperar següent captura
+    # Esperar següent captura (només si no és l'última)
     if i < N - 1:
-        time.sleep(SLEEP)
+        # Calcular temps d'espera ajustat per compensar el temps de processament
+        temps_captura_fi = datetime.utcnow()
+        temps_processat = (temps_captura_fi - temps_captura_inici).total_seconds()
+        temps_espera_ajustat = max(0, SLEEP - temps_processat)
+        
+        if temps_espera_ajustat > 0:
+            time.sleep(temps_espera_ajustat)
 
 # =============================================================================
 # RESUM FINAL
 # =============================================================================
 
-print("\n" + "="*60)
+temps_final = datetime.utcnow()
+temps_total_hores = (temps_final - temps_inici).total_seconds() / 3600
+mitjana_final = total_avions / max(captures_exitoses, 1)
+
+print()
+print("=" * 70)
 print("RECOL·LECCIÓ COMPLETADA")
-print(f"Captures: {captures_exitoses}/{N} | Errors: {captures_error}")
-print(f"Total avions: {total_avions:,} | Mitjana: {total_avions/max(captures_exitoses, 1):.1f}")
+print("=" * 70)
+print(f"Temps total: {temps_total_hores:.1f} hores ({DURADA_DIES} dies)")
+print(f"Captures: {captures_exitoses}/{N} exitoses | {captures_error} errors")
+print(f"Taxa d'èxit: {(captures_exitoses/(captures_exitoses+captures_error)*100):.1f}%")
+print(f"Total avions: {total_avions:,} registres")
+print(f"Mitjana: {mitjana_final:.1f} avions per captura")
 print(f"Fitxer: {OUTPUT_FILE}")
-print("="*60)
+print(f"Mida aproximada: {OUTPUT_FILE.stat().st_size / (1024**2):.1f} MB")
+print("=" * 70)

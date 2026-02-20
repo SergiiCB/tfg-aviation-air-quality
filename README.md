@@ -70,7 +70,7 @@ tfg-aviation-air-quality/
 
 ```bash
 # 1. Clonar el repositori
-git clone https://github.com/el-teu-usuari/tfg-aviation-air-quality.git
+git clone https://github.com/SergiiCB/tfg-aviation-air-quality.git
 cd tfg-aviation-air-quality
 
 # 2. Iniciar el projecte amb Docker Compose
@@ -108,7 +108,7 @@ docker-compose exec tfg-jupyter python src/downloaders/adsb_downloader.py
 
 ```bash
 # 1. Clonar el repositori
-git clone https://github.com/el-teu-usuari/tfg-aviation-air-quality.git
+git clone https://github.com/SergiiCB/tfg-aviation-air-quality.git
 cd tfg-aviation-air-quality
 
 # 2. Crear entorn virtual
