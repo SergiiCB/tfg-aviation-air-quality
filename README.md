@@ -77,7 +77,7 @@ cd tfg-aviation-air-quality
 docker-compose up -d
 
 # 3. Accedir a Jupyter Lab
-# Obre el navegador a: http://localhost:8888
+Obre el navegador a: http://localhost:8888
 ```
 
 **Comandes útils:**
@@ -226,7 +226,7 @@ Per a preguntes o col·laboracions:
 
 ## 📄 Llicència
 
-El codi font d'aquest projecte està sota la llicència MIT. No obstant això, la memòria del TFG i la documentació tècnica associada estan subjectes a la llicència Reconocimiento-NoComercial-SinObraDerivada [3.0 España de Creative Commons](http://creativecommons.org/licenses/by-nc-nd/3.0/es/)
+El codi font d'aquest projecte està sota la [llicència MIT](https://opensource.org). No obstant això, la memòria del TFG i la documentació tècnica associada estan subjectes a la llicència Reconocimiento-NoComercial-SinObraDerivada [3.0 España de Creative Commons](http://creativecommons.org/licenses/by-nc-nd/3.0/es/)
 
 Consulta el fitxer [LICENSE](/LICENSE) per més detalls.
 
