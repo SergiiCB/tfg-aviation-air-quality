@@ -231,7 +231,7 @@ S'ha desenvolupat un entorn cartogràfic dinàmic que integra les dues fonts de 
 ---
 
 ## 🔐 Configuració d'API Keys
-> .[!IMPORTANT].
+> [!IMPORTANT]
 > No pugis mai les teves **API keys** al repositori!
 
 Crea un fitxer `.env` a l'arrel del projecte:
