@@ -228,7 +228,7 @@ S'ha desenvolupat un entorn cartogràfic dinàmic que integra les dues fonts de 
 
 * **Capes de Densitat**: Representació de l'activitat aèria sobre una malla geoespacial.
 * **Estacions ICA**: Marcadors interactius amb codi de colors oficial i pop-ups personalitzats (HTML/CSS) amb el detall de cada contaminant.
-* **Accés directe**: **[🌐 Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
+* **Accés directe**: **[Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
 
 ---
 
