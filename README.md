@@ -9,8 +9,8 @@
 
 Aquest Treball Final de Grau (TFG) analitza la possible correlació entre la **densitat de trànsit aeri** i la **qualitat de l'aire** a Espanya. L'estudi utilitza dades en temps real de:
 
-- [🔗](https://www.adsbexchange.com/version-2-api-wip/)**ADS-B Exchange API**: Dades de posició, altitud i velocitat d'aeronaus.
-- [🔗](https://ica.miteco.es/)**ICA (Índex de Qualitat de l'Aire) - MITECO**: Mesures horàries de qualitat de l'aire.
+- [**ADS-B Exchange API**:](https://www.adsbexchange.com/version-2-api-wip/) Dades de posició, altitud i velocitat d'aeronaus.
+- [**ICA (Índex de Qualitat de l'Aire) - MITECO**:](https://ica.miteco.es/) Mesures horàries de qualitat de l'aire.
 
 ### 🎯 Objectius
 
@@ -181,27 +181,29 @@ python src/processors/ica_merger.py
 
 Obrir i executar els notebooks en ordre:
 
-1. `01_exploratory_analysis.ipynb` - Exploració inicial de les dades.
-2. `02_cleaning_preprocessing.ipynb` - Neteja i preprocessament.
-3. `03_correlation_analysis.ipynb` - Anàlisi de correlació.
-4. `04_interactive_map.ipynb` - Generació del mapa interactiu.
+1. [`01_exploratory_analysis.ipynb`](notebooks/01_exploratory_analysis.ipynb) - Exploració inicial de les dades.
+2. [`02_cleaning_preprocessing.ipynb`](notebooks/02_cleaning_preprocessing.ipynb) - Neteja i preprocessament.
+3. [`03_correlation_analysis.ipynb`](notebooks/03_correlation_analysis.ipynb) - Anàlisi de correlació.
+4. [`04_interactive_map.ipynb`](notebooks/04_interactive_map.ipynb) - Generació del mapa interactiu.
 
 ---
 
 ## 🤖 Tecnologies Utilitzades
 
 ### Llenguatges i Frameworks
-- **Python 3.11**: Llenguatge principal.
-- **Jupyter Lab**: Entorn d'anàlisi interactiu.
-- **Docker**: Contenidorització i reproducibilitat.
+- [**Python 3.11**:](https://www.python.org/downloads/release/python-3110/) Llenguatge principal.
+- [**Jupyter Lab**:](https://jupyterlab.readthedocs.io/en/latest/) Entorn d'anàlisi interactiu.
+- [**Docker**:](https://docs.docker.com/manuals/) Contenidorització i reproducibilitat.
 
 ### Llibreries Principals
-- **pandas**: Manipulació de dades tabulars.
-- **NumPy**: Càlculs numèrics.
-- **matplotlib / seaborn**: Visualització estàtica.
-- **folium**: Mapes interactius.
-- **scipy / scikit-learn**: Anàlisi estadística i correlacions.
-- **requests**: Peticions a APIs.
+- [**pandas**:](https://pandas.pydata.org/docs/) Manipulació de dades tabulars.
+- [**NumPy**:](https://numpy.org/doc/stable/) Càlculs numèrics.
+- [**matplotlib**:](https://matplotlib.org/stable/users/index) Visualització estàtica.
+- [**seaborn**:](https://seaborn.pydata.org/tutorial.html) Visualització estàtica.
+- [**folium**:](https://python-visualization.github.io/folium/latest/user_guide.html) Mapes interactius.
+- [**scipy**:](https://docs.scipy.org/doc/scipy/) Anàlisi estadística i correlacions.
+- [**scikit-learn**:](https://scikit-learn.org/stable/user_guide.html) Anàlisi estadística i correlacions.
+- [**requests**:](https://requests.readthedocs.io/en/latest/) Peticions a APIs.
 
 ---
 
@@ -226,7 +228,7 @@ S'ha desenvolupat un entorn cartogràfic dinàmic que integra les dues fonts de 
 
 * **Capes de Densitat**: Representació de l'activitat aèria sobre una malla geoespacial.
 * **Estacions ICA**: Marcadors interactius amb codi de colors oficial i pop-ups personalitzats (HTML/CSS) amb el detall de cada contaminant.
-* **Accés directe**: 🌐 **[Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
+* **Accés directe**: **[🌐 Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
 
 ---
 
@@ -245,17 +247,17 @@ ADSB_API_KEY="la-teva-api-key-aqui"
 
 ## Agraïments
 
-- **ADS-B Exchange**: Per proporcionar dades de trànsit aeri en temps real.
-- **MITECO (Ministerio para la Transición Ecológica)**: Per les dades d'ICA.
+- [**ADS-B Exchange**:](https://www.adsbexchange.com/) Per proporcionar dades de trànsit aeri en temps real.
+- [**MITECO (Ministerio para la Transición Ecológica)**:](https://www.miteco.gob.es/es.html) Per les dades d'ICA.
 - **Tutora del TFG**: Per la supervisió i guia del projecte.
 
 ---
 
 ## 👤 Sergi Cózar Badia
  
-Treball Final de Grau - Universitat Oberta de Catalunya (UOC)
+Treball Final de Grau - [Universitat Oberta de Catalunya (UOC)](https://www.uoc.edu/ca)
 
-Grau de Ciència de Dades Aplicada / Applied Data Science
+[Grau de Ciència de Dades Aplicada / Applied Data Science](https://www.uoc.edu/ca/estudis/graus/grau-data-science)
 
 Curs 2025-2026
 
