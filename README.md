@@ -9,16 +9,16 @@
 
 Aquest Treball Final de Grau (TFG) analitza la possible correlació entre la **densitat de trànsit aeri** i la **qualitat de l'aire** a Espanya. L'estudi utilitza dades en temps real de:
 
-- **ADS-B Exchange API**: Dades de posició, altitud i velocitat d'aeronaus.
-- **ICA (Índex de Qualitat de l'Aire) - MITECO**: Mesures horàries de qualitat de l'aire.
+- [🔗](https://www.adsbexchange.com/version-2-api-wip/)**ADS-B Exchange API**: Dades de posició, altitud i velocitat d'aeronaus.
+- [🔗](https://ica.miteco.es/)**ICA (Índex de Qualitat de l'Aire) - MITECO**: Mesures horàries de qualitat de l'aire.
 
 ### 🎯 Objectius
 
-1. Recopilar dades de trànsit aeri i qualitat de l'aire durant 24 hores
-2. Processar i netejar les dades per a l'anàlisi
-3. Analitzar la correlació espacial i temporal entre ambdues variables
-4. Generar visualitzacions interactives dels resultats
-5. Extreure conclusions sobre la relació entre trànsit aeri i contaminació atmosfèrica
+1. Recopilar dades de trànsit aeri i qualitat de l'aire durant 24 hores.
+2. Processar i netejar les dades per a l'anàlisi.
+3. Analitzar la correlació espacial i temporal entre ambdues variables.
+4. Generar visualitzacions interactives dels resultats.
+5. Extreure conclusions sobre la relació entre trànsit aeri i contaminació atmosfèrica.
 
 ---
 
@@ -26,33 +26,62 @@ Aquest Treball Final de Grau (TFG) analitza la possible correlació entre la **d
 
 ```
 tfg-aviation-air-quality/
-├── src/                          # Codi font
-│   ├── downloaders/              # Scripts de descàrrega de dades
-│   │   ├── adsb_downloader.py    # Descàrrega ADS-B (cada 5 min)
-│   │   └── ica_downloader.py     # Descàrrega ICA (cada hora)
-│   └── processors/               # Scripts de processament
-│       └── ica_merger.py         # Fusió de fitxers ICA
-│
-├── data/                         # Dades (no pujat a Git)
-│   ├── raw/                      # Dades originals
-│   ├── merged/                   # Dades fusionades
-│   └── processed/                # Dades netejades
-│
-├── notebooks/                    # Jupyter notebooks
+├── .github/
+│   └── workflows
+├── src/
+│   ├── __init__.py
+│   ├── downloaders/
+│   │   ├── __init__.py
+│   │   ├── adsb_downloader.py
+│   │   └── ica_downloader.py
+│   ├── processors/
+│   │   ├── __init__.py
+│   │   └── ica_merger.py
+│   └── test/
+│       ├── __init__.py
+│       └── test_timing_miteco.py
+├── logs/
+│   ├── downloaders/
+│   │   ├── adsb/
+│   │   │   └── adsb_downloader.log
+│   │   └── ica/
+│   │       └── ica_downloader.log
+│   └── test/
+│       └── timing_analysis.log
+├── data/
+│   ├── raw/
+│   │   ├── adsb/
+│   │   │   └── adsb_raw.csv
+│   │   └── ica/
+│   │       ├── ica_2026-02-23T08.csv
+│   │       └── etc.
+│   ├── merged/
+│   │   └── ica_merged_raw.csv
+│   └── processed/
+│       ├── adsb/
+│       │   └── adsb_clean.csv
+│       └── ica/
+│           └── ica_clean.csv
+├── notebooks/
 │   ├── 01_exploratory_analysis.ipynb
 │   ├── 02_cleaning_preprocessing.ipynb
 │   ├── 03_correlation_analysis.ipynb
 │   └── 04_interactive_map.ipynb
-│
-├── outputs/                      # Resultats finals
-│   ├── maps/                     # Mapes interactius (HTML)
-│   └── figures/                  # Gràfics (PNG)
-│
-├── Dockerfile                    # Configuració Docker
-├── docker-compose.yml            # Orquestració Docker
-├── requirements.txt              # Dependències Python
-├── README.md                     # Aquest fitxer
-└── LICENSE                       # Llicència del projecte
+├── outputs/
+│   ├── maps/
+│   │   └── interactive_map.html
+│   └── figures/
+│       ├── correlation_analysis.png
+│       └── etc.
+├── .dockerignore
+├── .gitignore
+├── .env
+├── docker-compose.yml
+├── Dockerfile
+├── index.html
+├── README.md
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
@@ -162,34 +191,50 @@ Obrir i executar els notebooks en ordre:
 ## 🤖 Tecnologies Utilitzades
 
 ### Llenguatges i Frameworks
-- **Python 3.11**: Llenguatge principal
-- **Jupyter Lab**: Entorn d'anàlisi interactiu
-- **Docker**: Contenidorització i reproducibilitat
+- **Python 3.11**: Llenguatge principal.
+- **Jupyter Lab**: Entorn d'anàlisi interactiu.
+- **Docker**: Contenidorització i reproducibilitat.
 
 ### Llibreries Principals
-- **pandas**: Manipulació de dades tabulars
-- **NumPy**: Càlculs numèrics
-- **matplotlib / seaborn**: Visualització estàtica
-- **folium**: Mapes interactius
-- **scipy / scikit-learn**: Anàlisi estadística i correlacions
-- **requests**: Peticions a APIs
+- **pandas**: Manipulació de dades tabulars.
+- **NumPy**: Càlculs numèrics.
+- **matplotlib / seaborn**: Visualització estàtica.
+- **folium**: Mapes interactius.
+- **scipy / scikit-learn**: Anàlisi estadística i correlacions.
+- **requests**: Peticions a APIs.
 
 ---
 
-## 📈 Resultats
+## 📈 Resultats i Conclusions
 
-> **Nota**: Aquesta secció s'actualitzarà quan es completin les anàlisis.
+L'anàlisi s'ha consolidat com una **Prova de Concepte (PoC)** metodològica. Tot i la limitació temporal del dataset (24 hores) a causa de la indisponibilitat del servidor extern del MITECO per obtenir un conjunt de dades més gran, s'ha validat amb èxit tota la pipeline de dades, des de la ingesta automatitzada fins a la visualització geoespacial.
 
-- **Mapa interactiu**: [outputs/maps/interactive_map.html](outputs/maps/interactive_map.html)
-- **Gràfics de correlació**: [outputs/figures/](outputs/figures/)
+### 1. Anàlisi Estadística
+S'ha realitzat un encreuament espai-temporal d'alta precisió alineant els vols amb les **estacions de fons (background)** per minimitzar el soroll del trànsit rodat.
+
+| Mètrica | Valor | Interpretació |
+| :--- | :--- | :--- |
+| **Observacions vinculades** | 603 | Registres amb coincidència en malla (0.1º) i hora. |
+| **Coeficient de Pearson ($r$)** | `-0.013` | Absència de correlació lineal. |
+| **Coeficient de Spearman ($\rho$)** | `-0.097` | Relació monòtona molt baixa ($p = 0.018$). |
+| **Coeficient de Determinació ($R^2$)** | `0.0002` | El trànsit explica el 0.02% de la variància de l'ICA. |
+
+**Conclusió científica:** Els resultats són coherents amb la física de la dispersió atmosfèrica (especialment sota la limitació de 24 hores). Les emissions a altituds de creuer es dispersen en grans volums d'aire, fent que el seu impacte immediat a nivell de superfície sigui indetectable en una finestra temporal curta sense l'aplicació de models de dispersió complexos.
+
+### 2. Visualització Interactiva
+S'ha desenvolupat un entorn cartogràfic dinàmic que integra les dues fonts de dades:
+
+* **Capes de Densitat**: Representació de l'activitat aèria sobre una malla geoespacial.
+* **Estacions ICA**: Marcadors interactius amb codi de colors oficial i pop-ups personalitzats (HTML/CSS) amb el detall de cada contaminant.
+* **Accés directe**: 🌐 **[Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
 
 ---
 
 ## 🔐 Configuració d'API Keys
+> .[!IMPORTANT].
+> No pugis mai les teves **API keys** al repositori!
 
-**IMPORTANT**: No pugis mai les teves API keys al repositori!
-
-1. Crea un fitxer `.env` a l'arrel del projecte:
+Crea un fitxer `.env` a l'arrel del projecte:
 
 ```bash
 # .env (aquest fitxer està ignorat per Git)

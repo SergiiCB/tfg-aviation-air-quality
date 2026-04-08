@@ -38,7 +38,7 @@ df = pd.concat((pd.read_csv(f) for f in all_files), ignore_index=True)
 # =============================================================================
 
 # Guardar el DataFrame fusionat
-output_file = output_dir / "ica_merged_raw"
+output_file = output_dir / "ica_merged_raw.csv"
 df.to_csv(output_file, index=False)
 
 # Mostrar estadístiques finals
