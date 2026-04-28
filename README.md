@@ -230,6 +230,14 @@ S'ha desenvolupat un entorn cartogràfic dinàmic que integra les dues fonts de 
 * **Estacions ICA**: Marcadors interactius amb codi de colors oficial i pop-ups personalitzats (HTML/CSS) amb el detall de cada contaminant.
 * **Accés directe**: **[Veure Mapa Interactiu](https://sergiicb.github.io/tfg-aviation-air-quality/outputs/maps/interactive_map.html)**
 
+Com a complement al mapa, s'ha dissenyat un entorn visual a Tableau Public per a l'exploració estadística de les dades ICA:
+
+* **Anàlisi Multivariable**: Integració del mapa de Folium amb gràfics d'evolució horària de contaminants i rànquings d'estacions.
+
+* **Comparativa Estadística**: Ús de Box Plots i gràfics de barres agrupades per comparar la qualitat de l'aire segons la tipologia d'estació.
+
+* **Accés directe**: **[Veure Dashboard Interactiu](https://public.tableau.com/app/profile/sergicb/viz/TFG-Anlisideltrnsitaeriielseuimpacteterritorial/Historia1?publish=yes)**
+
 ---
 
 ## 🔐 Configuració d'API Keys
@@ -273,7 +281,7 @@ Per a preguntes o col·laboracions:
 
 ## 📄 Llicència
 
-El codi font d'aquest projecte està sota la [llicència MIT](https://opensource.org). No obstant això, la memòria del TFG i la documentació tècnica associada estan subjectes a la llicència Reconocimiento-NoComercial-SinObraDerivada [3.0 España de Creative Commons](http://creativecommons.org/licenses/by-nc-nd/3.0/es/)
+El codi font d'aquest projecte està sota la [llicència MIT](https://opensource.org). No obstant això, la memòria del TFG i la documentació tècnica associada estan subjectes a la llicència de [Reconeixement-NoComercial-SenseObraDerivada 3.0 Espanya de Creative Commons](http://creativecommons.org/licenses/by-nc-nd/3.0/es/)
 
 Consulta el fitxer [LICENSE](/LICENSE) per més detalls.
 
